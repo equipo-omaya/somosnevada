@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Somos Nevada - Gelato Artesanal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Homemade+Apple&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --c-bg: #f9f3e3;
+            --c-text: #0e0e0e;
+            --c-accent: #f37011;
+            --gutter: 2rem;
+            --offset: 5vw;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 10px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Courier Prime', monospace;
+            font-size: 1.6rem;
+            background: var(--c-bg);
+            color: var(--c-text);
+            line-height: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--c-bg);
+            border-bottom: 1px solid var(--c-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 10rem;
+            z-index: 1000;
+            text-transform: uppercase;
+        }
+
+        .nav-inner {
+            width: 90vw;
+            max-width: 1400px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-pages {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-page {
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        .nav-page a {
+            text-decoration: none;
+            color: var(--c-text);
+            position: relative;
+            display: inline-block;
+        }
+
+        .nav-page svg {
+            position: absolute;
+            bottom: -0.7rem;
+            left: 0;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        .nav-page path {
+            stroke-dasharray: 130;
+            stroke-dashoffset: 130;
+            transition: stroke-dashoffset 1s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .nav-page:hover path,
+        .nav-page.active path {
+            stroke-dashoffset: 0;
+        }
+
+        .nav-page.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.4rem;
+            width: 6px;
+            height: 6px;
+            background: var(--c-accent);
+            border-radius: 50%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding-top: 10rem;
+        }
+
+        .hero-label {
+            font-size: 1.2rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(6rem, 12vw, 14rem);
+            font-weight: 400;
+            line-height: 90%;
+            margin-bottom: 2rem;
+        }
+
+        .hero-script {
+            font-family: 'Homemade Apple', cursive;
+            font-size: clamp(2rem, 3.5vw, 3.5rem);
+            color: #536acf;
+            line-height: 80%;
+        }
+
+        /* Sections */
+        section {
+            padding: clamp(5rem, 10vw, 15rem) var(--offset);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-label {
+            text-transform: uppercase;
+            margin-bottom: clamp(3rem, 5vw, 10rem);
+            display: block;
+        }
+
+        .section-title-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: clamp(3rem, 5vw, 6rem);
+            gap: 2rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(5rem, 8vw, 14rem);
+            font-weight: 400;
+            text-transform: uppercase;
+            line-height: 90%;
+            text-align: center;
+            flex: 1;
+        }
+
+        .section-mini {
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .section-script {
+            font-family: 'Homemade Apple', cursive;
+            font-size: 2em;
+            color: #536acf;
+            text-align: center;
+            display: block;
+            margin-bottom: clamp(3rem, 5vw, 6rem);
+        }
+
+        .section-index {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            align-items: center;
+            margin-top: clamp(8rem, 8vw, 18rem);
+            margin-bottom: clamp(8rem, 8vw, 18rem);
+        }
+
+        .section-index .left {
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        .section-index .center {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(5rem, 8vw, 14rem);
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .section-index .right {
+            text-align: right;
+            text-transform: uppercase;
+        }
+
+        /* Content */
+        .content {
+            font-size: clamp(1.4rem, 1.6vw, 1.6rem);
+            line-height: 200%;
+        }
+
+        .content p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Image */
+        .section-image {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 3/4;
+            margin: 0 auto clamp(3rem, 5vw, 6rem);
+            position: relative;
+        }
+
+        .image-wrapper {
+            width: 100%;
+            height: 100%;
+            clip-path: inset(10%);
+            transform: rotate(-2deg);
+            transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+            overflow: hidden;
+        }
+
+        .image-wrapper:hover {
+            clip-path: inset(0);
+            transform: rotate(0deg);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: sepia(0.2) grayscale(0.3);
+            transition: filter 0.5s;
+        }
+
+        .image-wrapper:hover img {
+            filter: none;
+        }
+
+        /* Ubicacion Grid */
+        .ubicacion-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(3rem, 5vw, 6rem);
+            margin-top: clamp(3rem, 5vw, 6rem);
+        }
+
+        @media (min-width: 768px) {
+            .ubicacion-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .ubicacion-card {
+            background: rgba(0, 0, 0, 0.02);
+            padding: 3rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .ubicacion-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .info-row {
+            display: flex;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            min-width: 120px;
+            font-weight: 700;
+        }
+
+        .info-value {
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            padding: 5rem var(--offset);
+            text-align: center;
+            border-top: 1px solid var(--c-text);
+        }
+
+        footer p {
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* Parentheses styling */
+        .paren {
+            opacity: 0.6;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-pages {
+                display: none;
+            }
+
+            .section-title-wrapper {
+                flex-direction: column;
+            }
+
+            .section-mini {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-inner">
+            <div class="nav-page">
+                <a href="#home">INDICE</a>
+                <svg width="56" height="5" viewBox="0 0 56 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 3.80239C10 3.31697 48.5 -0.5 55 3.31232" stroke="#f37011" stroke-width="2" fill="none"/>
+                </svg>
+            </div>
+            <ul class="nav-pages">
+                <li class="nav-page active">
+                    <a href="#storia">storia</a>
+                    <svg width="56" height="5" viewBox="0 0 56 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 3.80239C10 3.31697 48.5 -0.5 55 3.31232" stroke="#f37011" stroke-width="2" fill="none"/>
+                    </svg>
+                </li>
+                <li class="nav-page">
+                    <a href="#filosofia">filosofia</a>
+                    <svg width="56" height="5" viewBox="0 0 56 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 3.80239C10 3.31697 48.5 -0.5 55 3.31232" stroke="#f37011" stroke-width="2" fill="none"/>
+                    </svg>
+                </li>
+                <li class="nav-page">
+                    <a href="#ubicacion">ubicación</a>
+                    <svg width="56" height="5" viewBox="0 0 56 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 3.80239C10 3.31697 48.5 -0.5 55 3.31232" stroke="#f37011" stroke-width="2" fill="none"/>
+                    </svg>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-label fade-in">bienvenido a</div>
+        <h1 class="hero-title fade-in delay-1">NEVADA</h1>
+        <div class="hero-script fade-in delay-2">gelato artesanal</div>
+    </section>
+
+    <!-- Storia -->
+    <section id="storia">
+        <div class="container">
+            <span class="section-label fade-in">somos nevada</span>
+            
+            <div class="section-title-wrapper fade-in">
+                <span class="section-mini paren">( el origen )</span>
+                <h2 class="section-title">la storia</h2>
+                <span class="section-mini paren">( la pasión )</span>
+            </div>
+
+            <span class="section-script fade-in">#01 - todo empieza aquí</span>
+
+            <div class="section-image fade-in">
+                <div class="image-wrapper">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 533'%3E%3Crect fill='%23d4a574' width='400' height='533'/%3E%3Ctext x='50%25' y='50%25' font-size='80' text-anchor='middle' fill='%23f8f6f3' opacity='0.3'%3E🍨%3C/text%3E%3C/svg%3E" alt="Gelato artesanal">
+                </div>
+            </div>
+
+            <div class="section-index fade-in">
+                <span class="left">nuestra<br>historia</span>
+                <span class="center">I</span>
+                <span class="right">n°001</span>
+            </div>
+
+            <div class="content fade-in">
+                <p>Bienvenido a casa. Esto es más que una gelatería, es un lugar donde cada sabor cuenta una historia y donde el tiempo se detiene por un momento.</p>
+                
+                <p>Todo comenzó con un sueño simple pero poderoso: crear gelato auténtico que respete las tradiciones italianas más puras. No buscamos atajos ni compromisos. Cada ingrediente es seleccionado con cuidado, cada proceso respetado con reverencia.</p>
+                
+                <p>Creemos que el gelato es más que un postre. Es un acto de amor, una conexión con la tierra, un momento de felicidad compartida. Aquí, en Nevada, hacemos lo que sabemos hacer mejor: contar historias a través del sabor.</p>
+                
+                <p>Somos Nevada. Y Nevada es casa.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filosofia -->
+    <section id="filosofia">
+        <div class="container">
+            <div class="section-title-wrapper fade-in">
+                <span class="section-mini paren">( los valores )</span>
+                <h2 class="section-title">filosofia</h2>
+                <span class="section-mini paren">( el tiempo )</span>
+            </div>
+
+            <span class="section-script fade-in">#02 - nuestra manera de estar en el mundo</span>
+
+            <div class="section-index fade-in">
+                <span class="left">nuestros<br>valores</span>
+                <span class="center">II</span>
+                <span class="right">n°002</span>
+            </div>
+
+            <div class="content fade-in">
+                <p>Creer en lo auténtico es una declaración de principios. En un mundo que corre demasiado rápido, nosotros elegimos la lentitud, la calidad, la presencia.</p>
+                
+                <p>No se trata solo de hacer gelato. Se trata de expresar, con cada gesto, nuestra visión del mundo. Cada sabor es creado de forma consciente y coherente. Son las personas las que hacen la diferencia, junto con la tierra y el tiempo que dedicamos a cada aspecto.</p>
+                
+                <p>El verdadero lujo está en el tiempo dedicado, en la atención al detalle, en el compromiso con la excelencia. No buscamos producir más. Buscamos crear mejor.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ubicacion -->
+    <section id="ubicacion">
+        <div class="container">
+            <div class="section-title-wrapper fade-in">
+                <span class="section-mini paren">( el encuentro )</span>
+                <h2 class="section-title">te esperamos</h2>
+                <span class="section-mini paren">( la presencia )</span>
+            </div>
+
+            <span class="section-script fade-in">#03 - ven a visitarnos</span>
+
+            <div class="section-index fade-in">
+                <span class="left">nuestra<br>casa</span>
+                <span class="center">III</span>
+                <span class="right">n°003</span>
+            </div>
+
+            <div class="ubicacion-grid fade-in">
+                <div class="ubicacion-card">
+                    <h3>Ubicación</h3>
+                    <div class="info-row">
+                        <span class="info-label">Dirección</span>
+                        <span class="info-value">Por confirmar</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Teléfono</span>
+                        <span class="info-value">Por confirmar</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Email</span>
+                        <span class="info-value">info@somosnevada.es</span>
+                    </div>
+                </div>
+
+                <div class="ubicacion-card">
+                    <h3>Horario</h3>
+                    <div class="info-row">
+                        <span class="info-label">Lunes - Jueves</span>
+                        <span class="info-value">12:00 - 22:00</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Viernes - Sábado</span>
+                        <span class="info-value">12:00 - 23:00</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Domingo</span>
+                        <span class="info-value">12:00 - 22:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>
+            Somos Nevada<br>
+            Gelato Artesanal<br>
+            © 2024
+        </p>
+    </footer>
+</body>
+</html>
